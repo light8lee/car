@@ -16,7 +16,8 @@ class TextCNN:
 
     def create_placeholder(self):
         self.x = tf.placeholder(tf.int32, shape=[None, self.seq_len], name='x')  # 句子
-        self.y = tf.placeholder(tf.float32, shape=[None, self.num_classes], name='y')  # 相似度
+        self.y = tf.placeholder(tf.int32, shape=[None], name='y')  # 相似度
+        self.y_true = tf.one_hot(self.y, depth=4)
         self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
         self.l2_loss = tf.constant(0.0)
         print(self.x, self.y, self.keep_prob)
@@ -41,10 +42,10 @@ class TextCNN:
                     padding='VALID',
                     name='conv'
                 )
-                h = tf.nn.relu(tf.nn.bias_add(conv, b), name='relu')
+                # h = tf.nn.relu(tf.nn.bias_add(conv, b), name='relu')
                 # h = tf.nn.sigmoid(tf.nn.bias_add(conv, b), name='sigmoid')
                 # h = tf.nn.softmax(tf.nn.bias_add(conv, b), name='softmax')
-                # h = tf.nn.tanh(tf.nn.bias_add(conv, b), name='tanh')
+                h = tf.nn.tanh(tf.nn.bias_add(conv, b), name='tanh')
 
                 pool = tf.nn.max_pool(
                     h,
@@ -88,7 +89,7 @@ class TextCNN:
 
     def create_loss(self, lr=0.001):
         with tf.name_scope('loss'):
-            losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input)
+            losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.y_true)
             self.loss = tf.reduce_mean(losses) + self.l2_reg * self.l2_loss
             optimizer = tf.train.GradientDescentOptimizer(lr)
             grads_and_vars = optimizer.compute_gradients(self.loss)
