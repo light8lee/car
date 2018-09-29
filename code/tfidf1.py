@@ -100,8 +100,7 @@ for sub in subjects.values():
 
 
 
-"""
-test_df = pd.read_csv('../data/test_public.csv')
+test_df = pd.read_csv('../data/tfidf_test.csv')
 result = pd.DataFrame()
 result['content_id'] = test_df['content_id']
 for sub in subjects.values():
@@ -111,4 +110,23 @@ for sub in subjects.values():
 
     dtest = xgb.DMatrix(test_df)
     pred = model.predict(dtest)
-"""
+    result[sub] = pred
+
+
+with open('../output/tfidf1.csv', 'w', encoding='utf-8') as f:
+    line = '{},{},0,'
+    f.write('content_id,subject,sentiment_value,sentiment_word')
+    for index, row in result.iterrows():
+        has = False
+        for sub in subjects.values():
+            if row[sub] != 3:
+                has = True
+                value = line.format(row['content_id'], sub)
+                f.write('\n')
+                f.write(value)
+        if not has:
+            value = line.format(row['content_id'], '价格')
+            f.write('\n')
+            f.write(value)
+
+
