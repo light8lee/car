@@ -53,7 +53,7 @@ params = {
     'booster': 'gbtree',
     'objective': 'multi:softmax',  # 多分类的问题
     'num_class': 4,               # 类别数，与 multisoftmax 并用
-#     'tree_method': 'gpu_hist',
+    'tree_method': 'gpu_hist',
 #     'gamma': 0.1,                  # 用于控制是否后剪枝的参数,越大越保守，一般0.1、0.2这样子。
 #     'max_depth': 12,               # 构建树的深度，越大越容易过拟合
 #     'lambda': 2,                   # 控制模型复杂度的权重值的L2正则化项参数，参数越大，模型越不容易过拟合。
@@ -63,7 +63,7 @@ params = {
 #     'silent': 1,                   # 设置成1则没有运行信息输出，最好是设置为0.
 #     'eta': 0.007,                  # 如同学习率
 #     'seed': 1000,
-     'nthread': 4,                  # cpu 线程数
+#     'nthread': 4,                  # cpu 线程数
 }
 
 
@@ -83,6 +83,7 @@ subjects = {
 }
 
 print('validating...')
+# f = open('./log', 'w', encoding="utf-8")
 for sub in subjects.values():
     dtrain = xgb.DMatrix(X_train, y_train[sub])
     num_rounds = 500
@@ -92,7 +93,10 @@ for sub in subjects.values():
     pred = model.predict(dtest)
 
     print(sub, f1_score(y_test[sub], pred, average='macro'))
+    # f.write('\n')
     print(sub, f1_score(y_test[sub], pred, average='micro'))
+    # f.write('\n')
+# f.close()
 
 
 
