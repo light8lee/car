@@ -82,6 +82,7 @@ subjects = {
     'config': '配置'
 }
 
+"""
 print('validating...')
 # f = open('./log', 'w', encoding="utf-8")
 for sub in subjects.values():
@@ -98,11 +99,13 @@ for sub in subjects.values():
     # f.write('\n')
 # f.close()
 
+"""
 
 
 test_df = pd.read_csv('../data/tfidf_test.csv')
 result = pd.DataFrame()
-result['content_id'] = test_df['content_id']
+test = pd.read_csv('../data/test_public.csv')
+result['content_id'] = test['content_id']
 for sub in subjects.values():
     dtrain = xgb.DMatrix(X, Y_all[sub])
     num_rounds = 500
@@ -112,21 +115,29 @@ for sub in subjects.values():
     pred = model.predict(dtest)
     result[sub] = pred
 
+result.to_csv('../data/tmp.csv', index=False)
 
-with open('../output/tfidf1.csv', 'w', encoding='utf-8') as f:
+with open('../output/tfidf1v1.csv', 'w', encoding='utf-8') as f, open('../output/tfidf1v2.csv', 'w', encoding='utf-8') as f2:
     line = '{},{},0,'
+    line2 = '{},{},{},'
     f.write('content_id,subject,sentiment_value,sentiment_word')
+    f2.write('content_id,subject,sentiment_value,sentiment_word')
     for index, row in result.iterrows():
         has = False
         for sub in subjects.values():
             if row[sub] != 3:
                 has = True
                 value = line.format(row['content_id'], sub)
+                value2 = line.format(row['content_id'], sub, row[sub]-1)
                 f.write('\n')
                 f.write(value)
+                f2.write('\n')
+                f2.write(value2)
         if not has:
             value = line.format(row['content_id'], '价格')
             f.write('\n')
             f.write(value)
+            f2.write('\n')
+            f2.write(value)
 
 
