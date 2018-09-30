@@ -106,12 +106,13 @@ test_df = pd.read_csv('../data/tfidf_test.csv')
 result = pd.DataFrame()
 test = pd.read_csv('../data/test_public.csv')
 result['content_id'] = test['content_id']
+
+dtest = xgb.DMatrix(test_df)
 for sub in subjects.values():
     dtrain = xgb.DMatrix(X, Y_all[sub])
     num_rounds = 500
     model = xgb.train(params, dtrain, num_rounds)
 
-    dtest = xgb.DMatrix(test_df)
     pred = model.predict(dtest)
     result[sub] = pred
 
