@@ -54,7 +54,7 @@ model = XGBClassifier(tree_method='gpu_hist', object='multi:softmax', num_class=
 eval_set = [(X_train, y_train), (X_test, y_test)]
 
 kfold = StratifiedKFold(n_splits=10, random_state=seed, shuffle=True)
-grid_search = GridSearchCV(model, param, scoring='f1_micro', n_jobs=-1, cv=kfold)
+grid_search = GridSearchCV(model, param, scoring='f1_macro', n_jobs=-1, cv=kfold)
 print('开始对 {} 进行调参...'.format(args.subject))
 grid_result = grid_search.fit(X_train, y_train, eval_set=eval_set, early_stopping_rounds=12)
 print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
