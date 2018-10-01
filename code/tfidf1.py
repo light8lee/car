@@ -82,11 +82,17 @@ subjects = {
     'config': '配置'
 }
 
+def f1_eval(trues, preds):
+    label = preds.get_label()
+    score = f1_score(trues, labels, average='macro')
+    return 'f1_eval', score
+
 print('validating...')
 for sub in subjects.values():
     dtrain = xgb.DMatrix(X, Y_all[sub])
     num_rounds = 500
-    result = xgb.cv(params, dtrain, num_rounds, nfold=10, maximize=True, feval=lambda true, pred: f1_score(true, pred, average='macro'))
+    result = xgb.cv(params, dtrain, num_rounds, nfold=10, maximize=True, feval=f1_eval)
+    print(result)
 
 
 '''
