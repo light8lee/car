@@ -49,7 +49,7 @@ param = {  # 慢慢来,参数太多怕时间会炸
     # 'learning_rate': [], # 比之前的减少
 }
 
-model = XGBClassifier(tree_method='gpu_hist')
+model = XGBClassifier(tree_method='gpu_hist', object='multi:softmax', num_class=4)
 
 eval_set = [(X_train, y_train), (X_test, y_test)]
 
