@@ -42,8 +42,8 @@ Y_all.head(1)
 
 
 seed = 7
-test_size = 1000
-X_train, X_test, y_train, y_test = train_test_split(X, Y_all, test_size=test_size, random_state=seed)
+# test_size = 1000
+# X_train, X_test, y_train, y_test = train_test_split(X, Y_all, test_size=test_size, random_state=seed)
 
 
 # In[ ]:
@@ -83,23 +83,13 @@ subjects = {
 }
 
 print('validating...')
-# f = open('./log', 'w', encoding="utf-8")
 for sub in subjects.values():
-    dtrain = xgb.DMatrix(X_train, y_train[sub])
+    dtrain = xgb.DMatrix(X, Y_all[sub])
     num_rounds = 500
-    model = xgb.train(params, dtrain, num_rounds)
-
-    dtest = xgb.DMatrix(X_test)
-    pred = model.predict(dtest)
-
-    print(sub, f1_score(y_test[sub], pred, average='macro'))
-    # f.write('\n')
-    print(sub, f1_score(y_test[sub], pred, average='micro'))
-    # f.write('\n')
-# f.close()
+    result = xgb.cv(params, dtrain, num_rounds, nfold=10, maximize=True, feval=lambda true, pred: f1_score(true, pred, average='macro'))
 
 
-
+'''
 test_df = pd.read_csv('../data/merge_test.csv')
 result = pd.DataFrame()
 test = pd.read_csv('../data/test_public.csv')
@@ -140,3 +130,5 @@ with open('../output/merge1v1.csv', 'w', encoding='utf-8') as f, open('../output
             f2.write(value)
 
 
+
+'''
