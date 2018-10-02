@@ -105,6 +105,7 @@ if args.cv_flag:
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
         history.append((sub, test_eval_mean, train_eval_mean))
+    print(history)
 
 
 
