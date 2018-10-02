@@ -87,15 +87,16 @@ def f1_eval(trues, preds):
     score = f1_score(trues, labels, average='macro')
     return 'f1_eval', score
 
+'''
 print('validating...')
 for sub in subjects.values():
     dtrain = xgb.DMatrix(X, Y_all[sub])
     num_rounds = 500
     result = xgb.cv(params, dtrain, num_rounds, nfold=10, maximize=True, feval=f1_eval)
     print(result)
-
-
 '''
+
+
 test_df = pd.read_csv('../data/merge_test.csv')
 result = pd.DataFrame()
 test = pd.read_csv('../data/test_public.csv')
@@ -137,4 +138,3 @@ with open('../output/merge1v1.csv', 'w', encoding='utf-8') as f, open('../output
 
 
 
-'''
