@@ -115,26 +115,26 @@ result.to_csv('../data/tmp.csv', index=False)
 
 with open('../output/merge1v1.csv', 'w', encoding='utf-8') as f, open('../output/merge1v2.csv', 'w', encoding='utf-8') as f2:
     line = '{},{},0,'
-    line2 = '{},{},{},'
+    # line2 = '{},{},{},'
     f.write('content_id,subject,sentiment_value,sentiment_word')
-    f2.write('content_id,subject,sentiment_value,sentiment_word')
+    # f2.write('content_id,subject,sentiment_value,sentiment_word')
     for index, row in result.iterrows():
         has = False
         for sub in subjects.values():
-            if row[sub] != 3:
+            if row[sub]:
                 has = True
                 value = line.format(row['content_id'], sub)
-                value2 = line.format(row['content_id'], sub, row[sub]-1)
+                # value2 = line.format(row['content_id'], sub, row[sub]-1)
                 f.write('\n')
                 f.write(value)
-                f2.write('\n')
-                f2.write(value2)
+                # f2.write('\n')
+                # f2.write(value2)
         if not has:
             value = line.format(row['content_id'], '价格')
             f.write('\n')
             f.write(value)
-            f2.write('\n')
-            f2.write(value)
+            # f2.write('\n')
+            # f2.write(value)
 
 
 
