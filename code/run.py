@@ -30,7 +30,7 @@ args = parser.parse_args()
 # In[ ]:
 
 
-X = pd.read_csv('../data/{}.csv'.format(args.data_name))
+X = pd.read_csv('../data/{}_train.csv'.format(args.data_name))
 X.head(1)
 
 
@@ -109,7 +109,7 @@ if args.cv_flag:
 
 
 if args.pred:
-    test_df = pd.read_csv('../data/{}.csv'.format(args.data_name))
+    test_df = pd.read_csv('../data/{}_test.csv'.format(args.data_name))
     result = pd.DataFrame()
     test = pd.read_csv('../data/test_public.csv')
     result['content_id'] = test['content_id']
