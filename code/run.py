@@ -124,9 +124,8 @@ if args.cv_flag:
         dtrain = xgb.DMatrix(X, Y_all[sub])
         num_round = args.num_round
         if args.binary: # 处理不平衡数据
-            result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, scale_pos_weight=weights[sub])
-        else:
-            result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval)
+            params['scale_pos_weight'] = weights[sub]
+        result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval)
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
         history.append((sub, test_eval_mean, train_eval_mean))
@@ -145,9 +144,8 @@ if args.pred:
         dtrain = xgb.DMatrix(X, Y_all[sub])
         num_rounds = args.num_round
         if args.binary: # 处理不平衡数据
-            model = xgb.train(params, dtrain, num_rounds, scale_pos_weight=weights[sub])
-        else:
-            model = xgb.train(params, dtrain, num_rounds)
+            params['scale_pos_weight'] = weights[sub]
+        model = xgb.train(params, dtrain, num_rounds)
 
         pred = model.predict(dtest)
         result[sub] = pred
