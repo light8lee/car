@@ -91,6 +91,12 @@ def print_status(ps, num_round, test_eval_mean):
         print(key, '=', value, ',', end='')
     print('round =', num_round, ': ', test_eval_mean)
 
+def f1_eval(preds, dtrain):
+    labels = dtrain.get_label()
+    score = f1_score(labels, preds, average='macro')
+    return 'f1_eval', score
+
+
 dtrain = xgb.DMatrix(X, Y)
 for num_round in num_rounds:
     for ps in itertools.product(*list_params_values):
