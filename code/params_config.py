@@ -1,7 +1,7 @@
 Config = {
     "price": ({
-        'learning_rate': 0.08,
-    }, 600, 'merge'),
+        'learning_rate': 0.05,
+    }, 400, 'merge2'),
 
     "surface": ({
         'learning_rate': 0.1,
@@ -36,7 +36,7 @@ Config = {
     }, 600, 'merge'),
 
     "config": ({
-        'learning_rate': 0.1,
-    }, 600, 'merge'),
+        'learning_rate': 0.08,
+    }, 400, 'merge'),
 
 }
