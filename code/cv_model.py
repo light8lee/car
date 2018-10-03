@@ -10,6 +10,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
+parser.add_argument('data_name')
 parser.add_argument('subject')
 parser.add_argument('--binary', dest='binary', action='store_true', help='进行二分类')
 parser.add_argument('--nobinary', dest='binary', action='store_false', help='不进行二分类，而使用四分类，默认')
@@ -17,7 +18,7 @@ parser.add_argument('--kfold', type=int, default=5, help='交叉验证的ｋ折�
 parser.set_defaults(binary=False)
 args = parser.parse_args()
 
-X = pd.read_csv('../data/merge_train.csv')
+X = pd.read_csv('../data/{}_train.csv'.format(args.data_name))
 
 
 if args.binary:
@@ -93,6 +94,7 @@ def print_status(ps, num_round, test_eval_mean):
 
 def f1_eval(preds, dtrain):
     labels = dtrain.get_label()
+    # print(preds)
     score = f1_score(labels, preds, average='macro')
     return 'f1_eval', score
 
@@ -103,6 +105,7 @@ for num_round in num_rounds:
         param = {key: value for key, value in zip(list_params_keys, ps)}
         if args.binary: # 处理不平衡数据
             param['scale_pos_weight'] = weights[args.subject]
+        param.update(meta_param)
         result = xgb.cv(param, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, shuffle=True)
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
