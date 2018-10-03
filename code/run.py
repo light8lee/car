@@ -28,6 +28,9 @@ parser.add_argument('--kfold', type=int, default=5, help='交叉验证的ｋ折�
 parser.add_argument('--binary', dest='binary', action='store_true', help='进行二分类')
 parser.add_argument('--nobinary', dest='binary', action='store_false', help='不进行二分类，而使用四分类，默认')
 parser.set_defaults(binary=False)
+parser.add_argument('--col_subsample', type=float, default=1.0, help="列采样率")
+parser.add_argument('--subsample', type=float, default=1.0, help="样本采样率")
+parser.add_argument('--eta', type=float, default=0.3, help='学习率')
 args = parser.parse_args()
 
 
@@ -68,11 +71,11 @@ params = {
     # 'gamma': 0.1,                  # 用于控制是否后剪枝的参数,越大越保守，一般0.1、0.2这样子。
     # 'max_depth': 12,               # 构建树的深度，越大越容易过拟合
     # 'lambda': 2,                   # 控制模型复杂度的权重值的L2正则化项参数，参数越大，模型越不容易过拟合。
-    # 'subsample': 0.7,              # 随机采样训练样本
-    # 'colsample_bytree': 0.7,       # 生成树时进行的列采样
+    'subsample': args.subsample,              # 随机采样训练样本
+    'colsample_bytree': args.col_subsample,       # 生成树时进行的列采样
     # 'min_child_weight': 3,
     # 'silent': 1,                   # 设置成1则没有运行信息输出，最好是设置为0.
-    # 'eta': 0.007,                  # 如同学习率
+    'eta': args.eta,                  # 如同学习率
     'seed': seed,
     # 'nthread': 4,                  # cpu 线程数
 }
@@ -120,6 +123,7 @@ def f1_eval(trues, preds):
 if args.cv_flag:
     print('cross validating...')
     history = []
+    avg_f1 = 0
     for sub in subjects.values():
         dtrain = xgb.DMatrix(X, Y_all[sub])
         num_round = args.num_round
@@ -129,7 +133,9 @@ if args.cv_flag:
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
         history.append((sub, test_eval_mean, train_eval_mean))
+        avg_f1 += test_eval_mean
     print(history)
+    print(avg_f1)
 
 
 
