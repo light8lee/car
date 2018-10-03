@@ -68,6 +68,7 @@ seed = 7
 params = {
     'booster': 'gbtree',
     'tree_method': 'gpu_hist',
+    'objective': 'multi:softmax',    # 多分类的问题
     # 'gamma': 0.1,                  # 用于控制是否后剪枝的参数,越大越保守，一般0.1、0.2这样子。
     # 'max_depth': 12,               # 构建树的深度，越大越容易过拟合
     # 'lambda': 2,                   # 控制模型复杂度的权重值的L2正则化项参数，参数越大，模型越不容易过拟合。
@@ -81,9 +82,8 @@ params = {
 }
 
 if args.binary:
-    params['objective'] = 'gpu:reg:logistic' #二分类问题
+    params['num_class'] = 2 # 类别数，与 multisoftmax 并用
 else:
-    params['objective'] = 'multi:softmax' # 多分类的问题
     params['num_class'] = 4 # 类别数，与 multisoftmax 并用
 
 
@@ -115,9 +115,9 @@ weights = {
     '配置': 8.718640093786636,
 }
 
-def f1_eval(trues, preds):
-    labels = preds.get_label()
-    score = f1_score(trues, labels, average='macro')
+def f1_eval(preds, dtrain):
+    labels = dtrain.get_label()
+    score = f1_score(labels, preds, average='macro')
     return 'f1_eval', score
 
 if args.cv_flag:
@@ -129,7 +129,7 @@ if args.cv_flag:
         num_round = args.num_round
         if args.binary: # 处理不平衡数据
             params['scale_pos_weight'] = weights[sub]
-        result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval)
+        result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, shuffle=True)
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
         history.append((sub, test_eval_mean, train_eval_mean))
