@@ -103,7 +103,7 @@ for num_round in num_rounds:
         param = {key: value for key, value in zip(list_params_keys, ps)}
         if args.binary: # 处理不平衡数据
             param['scale_pos_weight'] = weights[args.subject]
-        result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, shuffle=True)
+        result = xgb.cv(param, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, shuffle=True)
         test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
         train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
         print_status(ps, num_round, test_eval_mean)
