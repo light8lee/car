@@ -37,10 +37,10 @@ args = parser.parse_args()
 
 
 Xs = {
-    "merge_train": pd.read_csv('../data/merge_train.csv'),
-    "merge2_train": pd.read_csv('../data/merge2_train.csv'),
-    "merge_test": pd.read_csv('../data/merge_test.csv'),
-    "merge2_test": pd.read_csv('../data/merge2_test.csv'),
+    # "merge_train": pd.read_csv('../data/merge_train.csv'),
+    "mergew_train": pd.read_csv('../data/mergew_train.csv'),
+    # "merge_test": pd.read_csv('../data/merge_test.csv'),
+    "mergew_test": pd.read_csv('../data/mergew_test.csv'),
 }
 
 # In[ ]:
