@@ -11,6 +11,7 @@ import xgboost as xgb
 from numpy import loadtxt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_val_score
 import argparse
 from params_config import Config
 
@@ -124,10 +125,11 @@ if args.cv_flag:
             params['scale_pos_weight'] = weights[sub]
         params.update(meta_params)
         model = xgb.XGBClassifier(**params)
-        model.fit(Xs[data_name], Y_all[sub])
-        # TODO
+        scores = cross_val_score(model, Xs[data_name], Y_all[sub], cv=5, scoring='f1_macro')
+        history.append((sub, scores.mean()))
+        avg_f1 += scores.mean()
     print(history)
-    print(avg_f1)
+    print(avg_f1/10)
 
 
 
@@ -139,9 +141,6 @@ if args.pred:
 
     for name, sub in subjects.items():
         params, dname = Config[name]
-        dtrain = xgb.DMatrix(Xs[data_name], Y_all[sub])
-        
-        dtest = xgb.DMatrix(Xs[data_name])
 
         if args.binary: # 处理不平衡数据
             params['scale_pos_weight'] = weights[sub]
