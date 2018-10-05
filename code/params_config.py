@@ -1,42 +1,42 @@
 Config = {
     "price": ({
-        'learning_rate': 0.05,
-    }, 400, 'merge2'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "surface": ({
-        'learning_rate': 0.1,
-    }, 600, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "safety": ({
         'learning_rate': 0.08,
-    }, 600, 'merge'),
+    }, 'mergew'),
 
     "operation": ({
-        'learning_rate': 0.05,
-    }, 600, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "interior": ({
-        'learning_rate': 0.1,
-    }, 400, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "power": ({
         'learning_rate': 0.08,
-    }, 600, 'merge'),
+    }, 'mergew'),
 
     "comfort": ({
-        'learning_rate': 0.1,
-    }, 600, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "space": ({
-        'learning_rate': 0.05,
-    }, 400, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "gas": ({
-        'learning_rate': 0.1,
-    }, 600, 'merge'),
+        'learning_rate': 0.08,
+    }, 'mergew'),
 
     "config": ({
         'learning_rate': 0.08,
-    }, 400, 'merge'),
+    }, 'mergew'),
 
 }

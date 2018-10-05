@@ -117,19 +117,15 @@ if args.cv_flag:
     history = []
     avg_f1 = 0
     for name, sub in subjects.items():
-        params, num_round, dname = Config[name]
+        params, dname = Config[name]
         data_name = '{}_train'.format(dname)
-        dtrain = xgb.DMatrix(Xs[data_name], Y_all[sub])
-        # num_round = args.num_round
         
         if args.binary: # 处理不平衡数据
             params['scale_pos_weight'] = weights[sub]
         params.update(meta_params)
-        result = xgb.cv(params, dtrain, num_round, nfold=args.kfold, maximize=True, feval=f1_eval, shuffle=True)
-        test_eval_mean = result.loc[num_round-1, 'test-f1_eval-mean']
-        train_eval_mean = result.loc[num_round-1, 'train-f1_eval-mean']
-        history.append((sub, test_eval_mean, train_eval_mean))
-        avg_f1 += test_eval_mean
+        model = xgb.XGBClassifier(**params)
+        model.fit(Xs[data_name], Y_all[sub])
+        # TODO
     print(history)
     print(avg_f1)
 
@@ -142,21 +138,20 @@ if args.pred:
     result['content_id'] = test['content_id']
 
     for name, sub in subjects.items():
-        params, num_round, dname = Config[name]
-        data_name = '{}_train'.format(dname)
+        params, dname = Config[name]
         dtrain = xgb.DMatrix(Xs[data_name], Y_all[sub])
         
-        data_name = '{}_test'.format(dname)
         dtest = xgb.DMatrix(Xs[data_name])
-        # dtrain = xgb.DMatrix(X, Y_all[sub])
-        # num_rounds = args.num_round
 
         if args.binary: # 处理不平衡数据
             params['scale_pos_weight'] = weights[sub]
         params.update(meta_params)
 
-        model = xgb.train(params, dtrain, num_round)
-        pred = model.predict(dtest)
+        model = xgb.XGBClassifier(**params)
+        train_name = '{}_train'.format(dname)
+        model.fit(Xs[train_name], Y_all[sub])
+        test_name = '{}_test'.format(dname)
+        pred = model.predict(Xs[test_name])
         result[sub] = pred
 
     result.to_csv('../data/tmp.csv', index=False)
