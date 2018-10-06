@@ -14,7 +14,7 @@ for doc in corpus:
     for w in jieba.cut(doc):
         word_count[w] += 1
 
-punc_ptn = re.compile(r"[\s+\/_,$%^*(+\"\')a-zA-Z0-9]+|[:：+——()?【】“”，。、~@#￥%……&*（）]+")
+punc_ptn = re.compile(r"[\s+\/_,$%^*(+\"\')]+|[:：+——()?【】“”，。、~@#￥%……&*（）]+")
 valid_words = []
 with open('../data/bow_words.txt', 'w', encoding='utf-8') as f:
     for w, count in word_count.items():
@@ -35,5 +35,5 @@ for w in valid_words:
 print(tfidf_train.shape)
 print(tfidf_test.shape)
 
-tfidf_train.to_csv('../data/bow_train.csv', index=False)
-tfidf_test.to_csv('../data/bow_test.csv', index=False)
+tfidf_train.to_csv('../data/bowna_train.csv', index=False)
+tfidf_test.to_csv('../data/bowna_test.csv', index=False)

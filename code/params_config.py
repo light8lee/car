@@ -1,104 +1,114 @@
 XGBConfig = {
     "price": ({
         'learning_rate': 0.1,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "surface": ({
         'learning_rate': 0.08,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "safety": ({
         'learning_rate': 0.06,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "operation": ({
         'learning_rate': 0.1,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "interior": ({
         'learning_rate': 0.08,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "power": ({
         'learning_rate': 0.12,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "comfort": ({
         'learning_rate': 0.08,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "space": ({
         'learning_rate': 0.1,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "gas": ({
         'learning_rate': 0.1,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
     "config": ({
         'learning_rate': 0.1,
+        'n_estimators': 500,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bowna'),
 
 }
 
 LGBConfig = {
     "price": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "surface": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "safety": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "operation": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "interior": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "power": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "comfort": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "space": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "gas": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 
     "config": ({
         'learning_rate': 0.08,
-        'n_estimators': 300,
-    }, 'mergew'),
+        'n_estimators': 400,
+    }, 'bowna'),
 }
