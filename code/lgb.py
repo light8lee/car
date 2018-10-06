@@ -17,7 +17,6 @@ import argparse
 from params_config import LGBConfig as Config
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--out_name', default='out', help="输出的文件名，当使用`--pred`时有效")
 # parser.add_argument('--num_round', type=int, default=500, help='训练次数')
 parser.add_argument('--cv', dest='cv_flag', action='store_true', help='进行交叉验证, 默认')
 parser.add_argument('--nocv', dest='cv_flag', action='store_false', help='不进行交叉验证')
