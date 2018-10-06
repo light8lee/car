@@ -2,52 +2,52 @@ XGBConfig = {
     "price": ({
         'learning_rate': 0.1,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "surface": ({
         'learning_rate': 0.08,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "safety": ({
         'learning_rate': 0.06,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "operation": ({
         'learning_rate': 0.1,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "interior": ({
         'learning_rate': 0.08,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "power": ({
         'learning_rate': 0.12,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "comfort": ({
         'learning_rate': 0.08,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "space": ({
         'learning_rate': 0.1,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "gas": ({
         'learning_rate': 0.1,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
     "config": ({
         'learning_rate': 0.1,
         'max_depth': 5,
-    }, 'mergew'),
+    }, 'bow'),
 
 }
 
@@ -55,50 +55,50 @@ LGBConfig = {
     "price": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "surface": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "safety": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "operation": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "interior": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "power": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "comfort": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "space": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "gas": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 
     "config": ({
         'learning_rate': 0.08,
         'n_estimators': 300,
-    }, 'mergew'),
+    }, 'bow'),
 }

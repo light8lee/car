@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('train_input')
+parser.add_argument('out_name')
 args = parser.parse_args()
 
 subjects = {
@@ -24,6 +24,8 @@ subjects = {
 }
 
 result = pd.DataFrame()
+test = pd.read_csv('../data/test_public.csv')
+result['content_id'] = test['content_id']
 for name, sub in subjects:
     xgb_df = pd.read_csv('../tmp/xgb-{}.csv'.format(name))
     lgb_df = pd.read_csv('../tmp/lgb-{}.csv'.format(name))
